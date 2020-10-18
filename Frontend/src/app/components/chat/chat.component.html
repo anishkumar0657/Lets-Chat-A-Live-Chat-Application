@@ -1,3 +1,38 @@
 <div class="chat">
-    <h1>I am a Chat</h1>
+    <div class="chatHeader">
+        <ngx-avatar name="Anish Kumar" value="28%" size="40" textSizeRatio="2.5" [round]="true"></ngx-avatar>
+
+        <div class="chatHeaderInfo">
+            <h3>Room Name</h3>
+            <p>last seen at....</p>
+        </div>
+
+        <div class="chatHeaderRight">
+            <span id='clickableAwesomeFont'><i class="fas fa-search"></i></span>
+            <span id='clickableAwesomeFont'><i class="fas fa-paperclip"></i></span>
+            <span id='clickableAwesomeFont'><i class="fas fa-ellipsis-v"></i></span>
+        </div>
+    </div>
+    <div class="chatBody">
+        <p class="chatMessage">
+            <span class="chatName">Anish</span>
+            this is a message
+            <span class="chatTimestamp">datetime</span>
+        </p>
+        <p class="chatMessage chatMessageReciever">
+            <span class="chatName">Anish</span>
+            this is a message
+            <span class="chatTimestamp">datetime</span>
+        </p>
+    </div>
+
+    <div class="chatFooter">
+        <span id='clickableAwesomeFont'><i class="far fa-grin-wink"></i></span>
+        <form>
+            <input type="text" name="textMessage" id="textMessage" placeholder="Type a message...." class="textMessage">
+            <button type="submit">Send Message</button>
+        </form>
+        <span id='clickableAwesomeFont'><i class="fas fa-microphone"></i></span>
+    </div>
+
 </div>

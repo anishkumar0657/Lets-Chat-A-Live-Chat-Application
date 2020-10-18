@@ -8,6 +8,9 @@ import { SidebarComponent } from './components/sidebar/sidebar.component';
 import { ChatComponent } from './components/chat/chat.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { SidebarChatComponent } from './components/sidebar/sidebar-chat/sidebar-chat.component';
+import { HttpClientModule } from '@angular/common/http';
+
+import { AvatarModule } from 'ngx-avatar';
 
 @NgModule({
   declarations: [
@@ -20,7 +23,9 @@ import { SidebarChatComponent } from './components/sidebar/sidebar-chat/sidebar-
     BrowserModule,
     AppRoutingModule,
     MaterialModule,
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
+    AvatarModule,
+    HttpClientModule
   ],
   providers: [],
   bootstrap: [AppComponent]
