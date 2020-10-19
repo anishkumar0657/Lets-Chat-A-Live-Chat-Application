@@ -8,17 +8,13 @@ import { UserModel } from './models/user-model.model';
 })
 export class AppComponent implements OnInit {
   title = 'Frontend';
-  loggedInUser: UserModel;
+  loggedInUser: true;
   
   constructor() { }
 
 
-  fetchAllUsers() {
-
-  }
-
   ngOnInit(): void {
-    this.fetchAllUsers();
+    
   }
 
 }

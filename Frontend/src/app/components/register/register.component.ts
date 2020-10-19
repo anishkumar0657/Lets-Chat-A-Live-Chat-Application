@@ -3,18 +3,17 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { UserModel } from 'src/app/models/user-model.model';
 import { ChatserviceService } from 'src/app/services/chatservice.service';
+import { LoginComponent } from '../login/login.component';
 
 @Component({
-  selector: 'app-login',
-  templateUrl: './login.component.html',
-  styleUrls: ['./login.component.css']
+  selector: 'app-register',
+  templateUrl: './register.component.html',
+  styleUrls: ['./register.component.css']
 })
-export class LoginComponent implements OnInit {
-
+export class RegisterComponent implements OnInit {
   form: FormGroup;
   loading = false;
   submitted = false;
-  needToRegister = false;
 
   constructor(private formBuilder: FormBuilder,
     private readonly chatService: ChatserviceService,
@@ -23,10 +22,8 @@ export class LoginComponent implements OnInit {
   ) { }
 
   // convenience getter for easy access to form fields
-  get formData() { return this.form.controls; }
-
-  showRegisterForm() {
-    this.needToRegister = true;
+  get formData() {
+    return this.form.controls;
   }
 
   onSubmit() {
@@ -38,13 +35,9 @@ export class LoginComponent implements OnInit {
     }
 
     this.loading = true;
-    this.chatService.authenticateUser(this.formData.email.value, this.formData.password.value)
-      .subscribe((user: UserModel) => {
-        // console.log(user);
-        // get return url from query parameters or default to home page
-        const returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/';
-        console.log(returnUrl);
-        this.router.navigateByUrl(returnUrl);
+    this.chatService.registerNewUser(this.form.value)
+      .subscribe((users: UserModel) => {
+        this.router.navigateByUrl('/login');
       },
         err => {
           console.error('Observer got an error: ' + err);
@@ -55,9 +48,13 @@ export class LoginComponent implements OnInit {
 
   ngOnInit(): void {
     this.form = this.formBuilder.group({
+      firstName: ['', Validators.required],
+      lastName: ['', Validators.required],
       email: ['', Validators.required],
-      password: ['', Validators.required]
+      mobile: ['', Validators.required],
+      password: ['', [Validators.required, Validators.minLength(6)]]
     });
+
   }
 
 }

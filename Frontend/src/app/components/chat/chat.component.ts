@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ChatserviceService } from 'src/app/services/chatservice.service';
 
 @Component({
   selector: 'app-chat',
@@ -7,9 +8,14 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ChatComponent implements OnInit {
 
-  constructor() { }
+  constructor(private readonly chatService: ChatserviceService) { }
+
+  fetchAllChats() {
+    this.chatService.fetchAllChats().subscribe();
+  }
 
   ngOnInit(): void {
+    this.fetchAllChats();
   }
 
 }

@@ -1,4 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
+import { UserModel } from 'src/app/models/user-model.model';
+import { ChatserviceService } from 'src/app/services/chatservice.service';
 
 @Component({
   selector: 'app-sidebar-chat',
@@ -6,10 +8,17 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./sidebar-chat.component.css']
 })
 export class SidebarChatComponent implements OnInit {
+  @Input() user: UserModel;
+  userName: string;
+  lastMessage: string;
 
-  constructor() { }
+  constructor(private readonly chatService: ChatserviceService) { }
 
-  ngOnInit(): void {
+  showChat() {
+    this.chatService.showChatFor(this.user);
   }
 
+  ngOnInit(): void {
+    this.userName = this.user.firstName + ' ' + this.user.lastName;
+  }
 }

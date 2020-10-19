@@ -1,6 +1,6 @@
+import { MaterialModule } from '../app/material/material.module';
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
-import { MaterialModule } from '../app/material/material.module';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -12,6 +12,8 @@ import { HttpClientModule } from '@angular/common/http';
 
 import { AvatarModule } from 'ngx-avatar';
 import { LoginComponent } from './components/login/login.component';
+import { RegisterComponent } from './components/register/register.component';
+import { HomeComponent } from './components/home/home.component';
 
 @NgModule({
   declarations: [
@@ -19,12 +21,14 @@ import { LoginComponent } from './components/login/login.component';
     SidebarComponent,
     ChatComponent,
     SidebarChatComponent,
-    LoginComponent
+    LoginComponent,
+    RegisterComponent,
+    HomeComponent
   ],
   imports: [
+    MaterialModule,
     BrowserModule,
     AppRoutingModule,
-    MaterialModule,
     BrowserAnimationsModule,
     AvatarModule,
     HttpClientModule

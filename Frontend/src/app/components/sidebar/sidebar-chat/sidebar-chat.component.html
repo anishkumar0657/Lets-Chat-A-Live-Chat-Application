@@ -1,10 +1,9 @@
 <div class="sidebarChat">
-    
-    <!-- avatar -->
-    <ngx-avatar name="Anish Kumar" value="28%" size="40" textSizeRatio="2.5" [round]="true"></ngx-avatar>
-    <div class="sidebarChatInfo">
-        <h2>The Room Name</h2>
-        <p>This is the last message....</p>
-    </div>
 
+    <!-- avatar -->
+    <ngx-avatar name={{userName}} value="28%" size="40" textSizeRatio="2.5" [round]="true"></ngx-avatar>
+    <div class="sidebarChatInfo" (click)="showChat()">
+        <h2>{{userName}}</h2>
+        <p>{{lastMessage}}</p>
+    </div>
 </div>
