@@ -2,14 +2,18 @@
   <div class="app_body">
 
     <!-- Sidebar Conponent-->
-    <div class="sidebar">
+    <div class="sidebar" *ngIf='loggedInUser'>
       <app-sidebar></app-sidebar>
     </div>
 
     <!-- Chat component -->
-    <div class="chat">
+    <div class="chat" *ngIf='loggedInUser'>
       <app-chat></app-chat>
     </div>
-    
+
+    <div class="login" *ngIf='!loggedInUser'>
+      <app-login></app-login>
+    </div>
+
   </div>
 </div>

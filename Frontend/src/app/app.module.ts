@@ -11,13 +11,15 @@ import { SidebarChatComponent } from './components/sidebar/sidebar-chat/sidebar-
 import { HttpClientModule } from '@angular/common/http';
 
 import { AvatarModule } from 'ngx-avatar';
+import { LoginComponent } from './components/login/login.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     SidebarComponent,
     ChatComponent,
-    SidebarChatComponent
+    SidebarChatComponent,
+    LoginComponent
   ],
   imports: [
     BrowserModule,
