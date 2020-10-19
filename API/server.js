@@ -11,7 +11,7 @@ const pusher = require('./utils/pusher');
 
 //import the user router
 const userRouter = require('./routes/user');
-
+const chatRouter = require('./routes/chat');
 
 const app = express();
 app.use(logger('dev'));
@@ -30,6 +30,7 @@ app.use(function (req, res, next) {
 
 // routes
 app.use('/user', userRouter);
+app.use('/chat', chatRouter);
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
