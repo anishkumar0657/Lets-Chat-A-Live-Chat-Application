@@ -7,7 +7,7 @@ const cors = require('cors');
 const mongoose = require('mongoose');
 
 //import pusher
-const pusher = require('./utils/pusher');
+const pusherService = require('./utils/database');
 
 //import the user router
 const userRouter = require('./routes/user');
@@ -51,6 +51,7 @@ app.use(function (err, req, res, next) {
 const port = process.env.PORT || 3000;
 mongoose.connect('mongodb+srv://admin:gYVpl7M87jbEYpEG@cluster0.up2yc.mongodb.net/letschatDB?retryWrites=true&w=majority', { useCreateIndex: true, useNewUrlParser: true, useUnifiedTopology: true })
   .then(connection => {
+    pusherService.activatePusher;
     app.listen(port);
     console.log('listening on port : ' + port);
   })

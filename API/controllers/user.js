@@ -33,7 +33,7 @@ exports.addNewUser = ((req, res, next) => {
 exports.authenticateUser = (async (req, res, next) => {
     const email = req.body.email;
     const password = req.body.password;
-    await User.find({ email: email }).then(user => {
+    await User.findOne({ email: email }).then(user => {
         if (user) {
             res.status(200);
             res.send(user);
@@ -47,8 +47,8 @@ exports.authenticateUser = (async (req, res, next) => {
 });
 
 //method to fetch all registered user
-exports.getAllRegisteredUsers = (async (req, res, next) => {
-    await User.find({}).then(users => {
+exports.getAllRegisteredUsers = ((req, res, next) => {
+    User.find().then(users => {
         res.status(200);
         res.send(users);
     })
