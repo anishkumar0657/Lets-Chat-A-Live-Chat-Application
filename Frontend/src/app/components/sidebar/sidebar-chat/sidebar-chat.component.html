@@ -1,9 +1,12 @@
 <div class="sidebarChat">
 
     <!-- avatar -->
-    <ngx-avatar name={{userName}} value="28%" size="40" textSizeRatio="2.5" [round]="true"></ngx-avatar>
-    <div class="sidebarChatInfo" (click)="showChat()">
+    <ngx-avatar matBadge="{{newMessageCount}}" matBadgeOverlap="false"
+        src="https://avatars.dicebear.com/api/human/{{user._id}}.svg" name={{userName}} value="28%" size="40"
+        textSizeRatio="2.5" [round]="true"></ngx-avatar>
+    <div class="sidebarChatInfo" (click)="showChatForUser()">
         <h2>{{userName}}</h2>
+        <span></span>
         <p>{{lastMessage}}</p>
     </div>
 </div>

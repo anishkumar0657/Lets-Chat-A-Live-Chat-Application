@@ -18,26 +18,20 @@ export class WebserviceService {
   }
   //post function
   post(uri: string, payload: Object) {
-    console.log(`${this.ROOT_URL}/${uri}`);
-    console.log(payload);
     return this.http.post(`${this.ROOT_URL}/${uri}/`, payload, httpOptions);
   }
 
   //get function
   get(uri: string) {
-    console.log(`${this.ROOT_URL}/${uri}`);
     return this.http.get(`${this.ROOT_URL}/${uri}`);
   }
 
   //delete funtion
   delete(uri: string) {
-    console.log(`${this.ROOT_URL}/${uri}`);
     return this.http.delete(`${this.ROOT_URL}/${uri}`);
   }
 
   put(uri: string, payload: Object) {
-    console.log(`${this.ROOT_URL}/${uri}`);
-    console.log(payload);
     return this.http.put(`${this.ROOT_URL}/${uri}`, payload, httpOptions);
   }
 }

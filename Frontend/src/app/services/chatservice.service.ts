@@ -4,6 +4,7 @@ import { UserModel } from '../models/user-model.model';
 import { WebserviceService } from './webservice.service';
 import { map } from 'rxjs/operators';
 import { Router } from '@angular/router';
+import { MessageModel } from '../models/message-model.model';
 
 @Injectable({
   providedIn: 'root'
@@ -13,17 +14,15 @@ export class ChatserviceService {
   private userSubject: BehaviorSubject<UserModel>;
   public user: Observable<UserModel>;
 
+
   constructor(private webService: WebserviceService, private router: Router) {
     this.userSubject = new BehaviorSubject<UserModel>(JSON.parse(localStorage.getItem('user')));
     this.user = this.userSubject.asObservable();
+
   }
 
   public get userValue(): UserModel {
     return this.userSubject.value;
-  }
-
-  showChatFor(user: UserModel) {
-      
   }
 
   registerNewUser(payload: UserModel) {
@@ -44,8 +43,12 @@ export class ChatserviceService {
     return this.webService.get('user/getAllRegisteredUsers');
   }
 
-  fetchAllChats() {
-    return this.webService.get('chat/fetchAllChats');
+  fetchChatWithUser(selectedUserID, loggedInUserID) {
+    return this.webService.post('chat/fetchChatBetweenUsers', { selectedUserID, loggedInUserID });
+  }
+
+  sendMessage(payload) {
+    return this.webService.post('chat/addNewMessage', payload);
   }
 
   logout() {

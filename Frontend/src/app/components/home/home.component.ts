@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { UserModel } from 'src/app/models/user-model.model';
 
 @Component({
   selector: 'app-home',
@@ -7,11 +8,15 @@ import { Component, OnInit } from '@angular/core';
 })
 export class HomeComponent implements OnInit {
 
-
+  selectedUser: UserModel;
   constructor() { }
-  
-  fetchAllUsers(){
 
+  fetchAllUsers() {
+
+  }
+
+  onSelectUser(user) {
+    this.selectedUser = user;
   }
 
   ngOnInit(): void {

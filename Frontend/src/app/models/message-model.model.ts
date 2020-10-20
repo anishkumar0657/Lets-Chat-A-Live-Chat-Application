@@ -5,5 +5,5 @@ export class MessageModel {
     message: string;
     senderID: string;
     recieverID: string;
-    timestamp: number;
+    timeStamp: string;
 }

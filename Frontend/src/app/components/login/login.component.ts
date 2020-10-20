@@ -40,10 +40,8 @@ export class LoginComponent implements OnInit {
     this.loading = true;
     this.chatService.authenticateUser(this.formData.email.value, this.formData.password.value)
       .subscribe((user: UserModel) => {
-        // console.log(user);
         // get return url from query parameters or default to home page
         const returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/';
-        console.log(returnUrl);
         this.router.navigateByUrl(returnUrl);
       },
         err => {

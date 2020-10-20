@@ -2,12 +2,12 @@
     <div class="app_body">
         <!-- Sidebar Conponent-->
         <div class="sidebar">
-            <app-sidebar></app-sidebar>
+            <app-sidebar (selectedUser)=onSelectUser($event)></app-sidebar>
         </div>
 
         <!-- Chat component -->
         <div class="chat">
-            <app-chat></app-chat>
+            <app-chat [selectedUser]=selectedUser></app-chat>
         </div>
     </div>
 </div>

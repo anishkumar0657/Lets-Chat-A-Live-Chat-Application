@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { UserModel } from 'src/app/models/user-model.model';
 import { ChatserviceService } from 'src/app/services/chatservice.service';
 
@@ -9,22 +9,31 @@ import { ChatserviceService } from 'src/app/services/chatservice.service';
 })
 export class SidebarComponent implements OnInit {
 
+  @Output() selectedUser = new EventEmitter();
   constructor(private readonly chatService: ChatserviceService) { }
 
-  activeUsers;
+  activeUsers: UserModel[] = [];
+  loggedInUser: UserModel;
 
   fetchAllUsers() {
-    this.chatService.getAllRegisteredUsers().subscribe(users => {
-      this.activeUsers = users;
+    this.chatService.getAllRegisteredUsers().subscribe((users: UserModel[]) => {
+      users.forEach(user => {
+        if (user._id != this.loggedInUser._id) {
+          this.activeUsers.push(user);
+        }
+      })
     },
       err => {
         console.log(err)
       });
   }
 
-  ngOnInit(): void {
-    this.fetchAllUsers();
+  onSelectedUser(user) {
+    this.selectedUser.emit(user);
   }
 
-
+  ngOnInit(): void {
+    this.loggedInUser = this.chatService.userValue;
+    this.fetchAllUsers();
+  }
 }
