@@ -1,4 +1,5 @@
-import { Component, Input, OnChanges, OnInit } from '@angular/core';
+import { Component, ElementRef, EventEmitter, Input, OnChanges, OnInit, Output, ViewChild } from '@angular/core';
+import { emit } from 'process';
 import Pusher from 'pusher-js';
 import { MessageModel } from 'src/app/models/message-model.model';
 import { UserModel } from 'src/app/models/user-model.model';
@@ -12,6 +13,9 @@ import { PusherService } from 'src/app/services/pusher.service';
 })
 export class ChatComponent implements OnInit, OnChanges {
   @Input() selectedUser: UserModel;
+  @ViewChild('chatContent') private myScrollContainer: any;
+  @Output() recievedMessageForOther = new EventEmitter();
+
   chatToShow = false;
   messageBody;
   messageToSend = new MessageModel();
@@ -46,30 +50,44 @@ export class ChatComponent implements OnInit, OnChanges {
   }
 
   configurePusher() {
-    this.pusherService.channel.bind('inserted', function (data) {
-      // this.chatDetails = data;
-      // this.chatDetails.push(data);
+    console.log('config pusher');
+    this.pusherService.channel.bind('inserted', (data) => {
       console.log(data);
-      // this.pushToMessageArray(data);
-      // alert(JSON.stringify(data));
+      this.pushToMessageArray(data);
     });
   }
 
   pushToMessageArray(data) {
-    console.log(data);
+    if ((this.selectedUser._id == data.senderID && data.recieverID == this.loggedInUser._id)
+      || (this.selectedUser._id == data.recieverID && data.senderID == this.loggedInUser._id)) {
+      this.chatDetails.push(data);
+      this.scrollToBottom();
+    }
+    else {
+      console.log('this is for someone else');
+      this.onRecievedMessageForOther(data);
+    }
   }
 
+  onRecievedMessageForOther(message) {
+    console.log('emit');
+    this.recievedMessageForOther.emit(message);
+  }
+
+  scrollToBottom(): void {
+    const el = this.myScrollContainer.nativeElement;
+    el.scrollTop = el.scrollHeight;
+  }
 
   ngOnChanges() {
     // api to fetch chat for this user and logged in user
     this.chatDetails = null;
-    this.configurePusher();
     this.fetchChatForUserWith(this.selectedUser._id, this.chatService.userValue._id);
-  }
 
+  }
 
   ngOnInit(): void {
     this.loggedInUser = this.chatService.userValue;
-
+    this.configurePusher();
   }
 }

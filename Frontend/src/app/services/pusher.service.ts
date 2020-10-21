@@ -15,6 +15,10 @@ export class PusherService {
     this.pusher = new Pusher(environment.pusher.key, {
       cluster: environment.pusher.cluster
     });
-    this.channel = this.pusher.subscribe('messages');
+
+    if (!this.channel) {
+      console.log('subscribe');
+      this.channel = this.pusher.subscribe('messages');
+    }
   }
 }

@@ -9,6 +9,10 @@
     background-color: #ebebeb;
 }
 
+.sidebarChat:active{
+    background-color: tomato;
+}
+
 .sidebarChatInfo{
     margin-left:15px;
 }

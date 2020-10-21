@@ -1,10 +1,9 @@
-<div class="sidebarChat">
-
+<div class="sidebarChat" (click)="showChatForUser()">
     <!-- avatar -->
-    <ngx-avatar matBadge="{{newMessageCount}}" matBadgeOverlap="false"
+    <ngx-avatar matBadge="{{getUnreadMessageCount()}}" matBadgeHidden="{{shouldHideBadge()}}" matBadgeOverlap="false"
         src="https://avatars.dicebear.com/api/human/{{user._id}}.svg" name={{userName}} value="28%" size="40"
         textSizeRatio="2.5" [round]="true"></ngx-avatar>
-    <div class="sidebarChatInfo" (click)="showChatForUser()">
+    <div class="sidebarChatInfo">
         <h2>{{userName}}</h2>
         <span></span>
         <p>{{lastMessage}}</p>

@@ -1,4 +1,5 @@
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { MessageModel } from 'src/app/models/message-model.model';
 import { UserModel } from 'src/app/models/user-model.model';
 import { ChatserviceService } from 'src/app/services/chatservice.service';
 
@@ -14,6 +15,8 @@ export class SidebarComponent implements OnInit {
 
   activeUsers: UserModel[] = [];
   loggedInUser: UserModel;
+  unreadMessageArray;
+  @Input() recievedMessageForOther: MessageModel;
 
   fetchAllUsers() {
     this.chatService.getAllRegisteredUsers().subscribe((users: UserModel[]) => {
@@ -32,8 +35,19 @@ export class SidebarComponent implements OnInit {
     this.selectedUser.emit(user);
   }
 
+  onLogout() {
+    this.chatService.logout();
+  }
+
+  makeUserAndUnreadMessageArray() {
+    this.unreadMessageArray = this.activeUsers.map(user => {
+      return { userID: user._id, unreadMessageCount: 0 };
+    })
+  }
+
   ngOnInit(): void {
     this.loggedInUser = this.chatService.userValue;
     this.fetchAllUsers();
+    this.makeUserAndUnreadMessageArray();
   }
 }

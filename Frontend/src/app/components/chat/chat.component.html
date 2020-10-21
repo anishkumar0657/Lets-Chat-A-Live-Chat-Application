@@ -1,5 +1,5 @@
 <div class="chat" *ngIf="chatToShow">
-    <div class="chatHeader">
+    <div class="chatHeader" >
         <ngx-avatar src="https://avatars.dicebear.com/api/human/{{selectedUser._id}}.svg" name="{{selectedUser.firstName}}" value="28%" size="40" textSizeRatio="2.5" [round]="true">
         </ngx-avatar>
 
@@ -14,7 +14,7 @@
             <span id='clickableAwesomeFont'><i class="fas fa-ellipsis-v"></i></span>
         </div>
     </div>
-    <div class="chatBody">
+    <div #chatContent class="chatBody" >
         <p *ngFor="let chat of chatDetails"
             [ngClass]="chat.recieverID === loggedInUser._id ? 'chatMessage' : 'chatMessage chatMessageReciever'">
             <span class="chatName">

@@ -44,7 +44,7 @@
     background-color: lightsalmon;
     background-position: center;
     padding: 30px;
-    overflow-y: scroll;
+    overflow-y: auto ;
     background-repeat: repeat;
     flex:1;
 }
