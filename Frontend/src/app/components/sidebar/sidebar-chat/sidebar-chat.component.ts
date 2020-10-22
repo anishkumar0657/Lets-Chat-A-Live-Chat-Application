@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Input, OnChanges, OnInit, Output, SimpleChange, SimpleChanges } from '@angular/core';
+import { Component, EventEmitter, Input, OnChanges, OnDestroy, OnInit, Output, SimpleChange, SimpleChanges } from '@angular/core';
 import { MessageModel } from 'src/app/models/message-model.model';
 import { UserModel } from 'src/app/models/user-model.model';
 import { ChatserviceService } from 'src/app/services/chatservice.service';
@@ -9,7 +9,7 @@ import { ChatserviceService } from 'src/app/services/chatservice.service';
   styleUrls: ['./sidebar-chat.component.css']
 })
 
-export class SidebarChatComponent implements OnInit, OnChanges {
+export class SidebarChatComponent implements OnInit, OnChanges, OnDestroy {
   @Input() user: UserModel;
   @Output() selectedUser = new EventEmitter();
   @Input() recievedMessageForOther: MessageModel;
@@ -21,31 +21,44 @@ export class SidebarChatComponent implements OnInit, OnChanges {
 
   newMessageCount = 0;
   hideBadge = false;
+  active = false;
+
 
   constructor(private readonly chatService: ChatserviceService) { }
 
   showChatForUser() {
+    this.active = true;
     this.selectedUser.emit(this.user);
   }
 
-  getUnreadMessageCount() {
+  getUnreadMessageCount(senderID) {
     this.unreadMessageArray.forEach(element => {
-      if (element.userID == this.user._id) {
-        return element.unreadMessageCount;
+      if (element.userID == senderID) {
+        this.newMessageCount = element.unreadMessageCount;
+        // return element.unreadMessageCount;
       }
     });
   }
 
   shouldHideBadge() {
-    return false;
+    return !(this.newMessageCount > 0);
   }
 
   incrementUnreadMessageCount(senderID) {
+    console.log(senderID);
+    console.log(this.unreadMessageArray.length);
     this.unreadMessageArray.forEach(element => {
+      console.log(element);
       if (element.userID == senderID) {
         element.unreadMessageCount++;
       }
     });
+    this.getUnreadMessageCount(senderID);
+    console.log(this.unreadMessageArray);
+  }
+
+  ngOnDestroy() {
+    this.active = false;
   }
 
   ngOnChanges(changes: SimpleChanges) {
@@ -54,11 +67,19 @@ export class SidebarChatComponent implements OnInit, OnChanges {
         switch (propName) {
           case 'recievedMessageForOther': {
             console.log('recieved messagee');
-            this.incrementUnreadMessageCount(this.recievedMessageForOther.senderID);
+            if (this.recievedMessageForOther.recieverID != this.user._id) {
+              this.incrementUnreadMessageCount(this.recievedMessageForOther.senderID);
+            }
           }
         }
       }
     }
+    // if (changes.recievedMessageForOther) {
+    //   console.log(this.recievedMessageForOther);
+    //   if (this.recievedMessageForOther.recieverID != this.user._id) {
+    //     this.incrementUnreadMessageCount(this.recievedMessageForOther.senderID);
+    //   }
+    // }
   }
 
   ngOnInit(): void {

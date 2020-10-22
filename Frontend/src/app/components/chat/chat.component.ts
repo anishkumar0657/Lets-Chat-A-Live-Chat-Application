@@ -58,6 +58,7 @@ export class ChatComponent implements OnInit, OnChanges {
   }
 
   pushToMessageArray(data) {
+    console.log('push message');
     if ((this.selectedUser._id == data.senderID && data.recieverID == this.loggedInUser._id)
       || (this.selectedUser._id == data.recieverID && data.senderID == this.loggedInUser._id)) {
       this.chatDetails.push(data);

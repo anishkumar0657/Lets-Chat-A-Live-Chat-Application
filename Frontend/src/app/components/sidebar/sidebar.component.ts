@@ -23,8 +23,10 @@ export class SidebarComponent implements OnInit {
       users.forEach(user => {
         if (user._id != this.loggedInUser._id) {
           this.activeUsers.push(user);
+          
         }
-      })
+      });
+      this.makeUserAndUnreadMessageArray();
     },
       err => {
         console.log(err)
@@ -48,6 +50,6 @@ export class SidebarComponent implements OnInit {
   ngOnInit(): void {
     this.loggedInUser = this.chatService.userValue;
     this.fetchAllUsers();
-    this.makeUserAndUnreadMessageArray();
+    // this.makeUserAndUnreadMessageArray();
   }
 }
